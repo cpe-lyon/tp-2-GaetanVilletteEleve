@@ -82,6 +82,28 @@ Ensuite pour tester le script il faut le rendre executable avec la commande:
 Et le tester avec la commande:
 <code>./testpwd.sh</code></br>
 
+## Exercice 3. Ecrivez un script qui prend un paramètre et utilise la fonction is_number() pour vérifier que ce paramètre est un nombre réel et affichera un message d'erreur dans le cas contraire.
+Ecrire le script:
+<code>nano TestNbr.sh</code></br>
+```bash
+#!/bin/bash
+function is_number()
+{
+re='^[+-]?[0-9]+([.][0-9]+)?$'
+if ! [[ $1 =~ $re ]] ; then
+ return 1
+else
+ return 0
+fi
+}
+
+if [[ is_number $1 = 0 ]]; then
+ echo "$1 est un nombre réel ."
+else
+ echo "$1 n'est pas un nombre réel."
+fi
+```
+
 
 
 
