@@ -103,8 +103,71 @@ else
  echo "$1 n'est pas un nombre réel."
 fi
 ```
+## Exercice 4. Écrivez un script qui vérifie l’existence d’un utilisateur dont le nom est donné en paramètre du script. Si le script est appelé sans nom d’utilisateur, il affiche le message : ”Utilisation : nom_du_script nom_utilisateur”,bas où nom_du_script est le nom de votre script récupéré automatiquement (si vous changez le nom de votre script, le message doit changer automatiquement).
 
+Ecrire le script:
+<code>nano VerifUser.sh</code></br>
+```bash
+#!/bin/bash
+INPUT_USER=$1
+FILENAME="${0##*/}"
+USERS=$(cut -d: -f1 /etc/passwd)
+if [ -z "$VAR_USER" ]; then
+ echo "Utilisation: $FILENAME nom_utilisateur"
+else
+ EXIST=0
+ for user in  $USERS
+ do
+  if [ "$user" = "$VAR_USER" ]; then
+   echo "L'utilisateur $VAR_USER existe deja."
+   EXIST=1
+  fi
+ done
+ if [ $EXIST -eq 0 ]; then
+  echo "Aucun utilisateur comme $VAR_USER n'est renseigné."
+ fi
+ fi
+```
 
+## Exercice 5. Écrivez un programme qui calcule la factorielle d’un entier naturel passé en paramètre (on supposera que l’utilisateur saisit toujours un entier naturel).
+Ecrire le script:
+<code>nano Factorielle.sh</code></br>
+```bash
+#!/bin/bash
+fact() { 
+ n=$1 
+ if [ $n -eq 0 ]; then 
+  echo 1 
+ else 
+  echo $(( n * `fact $(( n - 1 ))` )) 
+ fi 
+} 
+echo `fact $1`
+```
+
+## Exercice 6. Écrivez un script qui génère un nombre aléatoire entre 1 et 1000 et demande à l’utilisateur de le deviner. Le programme écrira ”C’est plus !”, ”C’est moins !” ou ”Gagné !” selon les cas (vous utiliserez $RANDOM). = Juste prix
+Ecrire le script:
+<code>nano JustePrix.sh</code></br>
+```bash
+#!/bin/bash
+NOMBRE=$(( ( RANDOM % 100 )  + 1 ))
+VAR_NB=-1
+echo "Essaye de trouver un nombre entre 1 et 100 !"
+while [ $NOMBRE != $VAR_NB ]
+do
+ echo $NOMBRE
+ read VAR_NB
+ if [ $NOMBRE -lt $VAR_NB ]; then
+  echo "Raté, essaye encore!! Il est plus petit :)"
+ elif [ $NOMBRE -gt $VAR_NB ]; then
+  echo "Et non c'est raté ! Il est plus grand :)"
+ fi
+done
+echo "Waow master mind !"
+```
+## Exercice 7. Écrivez un script qui prend en paramètres trois entiers (entre -100 et +100) et affiche le min, le max et la moyenne. Vous pouvez réutiliser la fonction de l’exercice 3 pour vous assurer que les paramètres sont bien des entiers.
+
+...
 
 
 
